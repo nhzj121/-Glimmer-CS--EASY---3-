@@ -35,8 +35,11 @@
 3. <p>只读：程序代码区，常量区</p>
    <p>堆区，栈区，全局数据区</p>
    <p>动态链接库中的代码和只读数据是只读的，但其中的数据段可以包含全局变量，是可读写的</p>
-4. `malloc()`: `void* malloc(size_t size);` 其中`void`表返回值类型，`size`表参数名，`size_t`是参数类型  `free()`: `void free(void* ptr)`其中`void`表返回值类型，`void* ptr`表要指向释放内存块的通用指针`ptr`是参数名称； 堆区
+4. `malloc()` :  `void* malloc(size_t size);`  其中 `void` 表返回值类型， `size` 表参数名，`size_t` 是参数类型  `free()`: `void free(void* ptr)`其中`void`表返回值类型，`void* ptr`表要指向释放内存块的通用指针`ptr`是参数名称； 堆区
 5. 方便对不同类型的数据等的管理，提高内存使用效率；使不同类型数据等分区，有利于提高程序的可移植性；便于防止内存碎片化，优化内存分配
 
 ## 内存模型的应用
-`constValue``constString`:存储在常量区。首先，两者有`const`前缀，其次是全局变量且均被初始化，所以可以判断，两者是不允许被更改的，应当存储在常量区。
+`constValue` `constString`:存储在常量区。首先，两者有`const`前缀，其次是全局变量且均被初始化，所以可以判断，两者是不允许被更改的，应当存储在常量区。
+`globalVar`:全局数据区。是全局变量且被初始化，在程序中可以对其值进行更改。
+`staticVar`:全局数据区。变量位于主函数内，但是用`static`修饰，属于静态变量，应而存储在全局数据区。
+`localVar` `localVarMain`:栈区。`localVar`位于函数`function`中，`localVarMain`位于`main`函数中，两者都属于局部变量。
