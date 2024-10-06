@@ -90,56 +90,80 @@ address of staticVar:000000000040301C
 原代码
 ```C
 #include <stdio.h>
-
+#include <string.h>
+#define H 30
 int main()
 {
-    int code;
-    for(;;)
+    int a[H][H],b[H][H],c[H][H];
+    int i,j,n;
+    for(j=0;j<H;j++)
     {
-        printf("Show me your code,please.\n");
-        scanf("%d",&code);
-        if(code>=100000 && code<=999999)
+        for(i=0;i<H;i++)
         {
-            printf("I am super hacker");
-            return 0;
-        }
-        else
-        {
-            printf("Fack code!");
+            c[i][j] = 0;
+            if(i == j)
+            {
+                a[i][j]=b[i][j]=5;
+            }
+            else
+            {
+                a[i][j]=b[i][j]=2;
+            }
         }
     }
+    for(j=0;j<H;j++)
+    {
+        for(i=0;i<H;i++)
+        {
+            for(n=0;n<H;n++)
+            {
+                c[i][j] += a[i][n] * b[n][j];
+            }
+            printf("%d ",c[i][j]);
+        }
+        printf("\n");
+    }
+
+    return 0;
 }
 ```
 优化后
 ```c
 #include <stdio.h>
-#define code_start 100000
-#define code_end 999999
-
+#include <string.h>
+#define H 30
 int main()
 {
-    int code;
-    while(1)
+    int a[H][H],b[H][H],c[H][H];
+    int i,j,n;
+    for(i=0;i<H;i++)
     {
-        printf("Show me your code,please.\n");
-        if(scanf("%d",&code)==1)
+        for(j=0;j<H;j++)
         {
-            if(code>=code_start && code<=code_end)
+            c[i][j] = 0;
+            if(i == j)
             {
-                printf("I am super hacker");
-                break;
+                a[i][j]=b[i][j]=5;
             }
             else
             {
-                printf("Fack code!\n");
+                a[i][j]=b[i][j]=2;
             }
         }
-        else
-        {
-            printf("fack code\n");
-            while(getchar() != '\n');
-        }
     }
+    for(i=0;i<H;i++)
+    {
+        for(j=0;j<H;j++)
+        {
+            for(n=0;n<H;n++)
+            {
+                c[i][j] += a[i][n] * b[n][j];
+            }
+            printf("%d ",c[i][j]);
+        }
+        printf("\n");
+    }
+
     return 0;
 }
 
